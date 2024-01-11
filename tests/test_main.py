@@ -2,7 +2,7 @@ import unittest
 from moto import mock_s3
 import boto3
 import os
-from src.main import upload_file_to_s3
+from ..src.main import upload_file_to_s3
 
 class TestS3Upload(unittest.TestCase):
 
