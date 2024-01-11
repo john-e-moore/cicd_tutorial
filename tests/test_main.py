@@ -14,7 +14,7 @@ class TestS3Upload(unittest.TestCase):
         conn.create_bucket(Bucket='test_bucket')
 
         # Call the function with the mock parameters
-        upload_file_to_s3('test_bucket', 'test_key')
+        upload_file_to_s3(conn, 'test_bucket', 'test_key')
 
         # Check if the file was created and contents are correct
         body = conn.Object('test_bucket', 'test_key').get()['Body'].read().decode("utf-8")

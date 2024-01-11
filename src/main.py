@@ -1,10 +1,7 @@
 import boto3
 import os
 
-def upload_file_to_s3(bucket, key):
-    # Create an S3 client
-    s3 = boto3.client('s3')
-
+def upload_file_to_s3(s3, bucket, key):
     # String to write to the file
     content = "Hello World"
 
@@ -17,5 +14,7 @@ def upload_file_to_s3(bucket, key):
 
 environment = os.getenv('CICD_TUTORIAL_ENVIRONMENT')
 print(environment)
+# Create an S3 client
+s3 = boto3.client('s3')
 # Replace 'your_bucket_name' and 'your_key' with your S3 bucket name and desired key
-upload_file_to_s3('mushroomsundays', f'cicd_tutorial/{environment}/hello_world.txt')
+upload_file_to_s3(s3, 'mushroomsundays', f'cicd_tutorial/{environment}/hello_world.txt')
