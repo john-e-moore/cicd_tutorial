@@ -17,8 +17,10 @@ class TestS3Upload(unittest.TestCase):
         upload_file_to_s3(s3, 'test_bucket', 'test_key')
 
         # Check if the file was created and contents are correct
-        body = s3.Object('test_bucket', 'test_key').get()['Body'].read().decode("utf-8")
-        self.assertEqual(body, "Hello World")
+        response = s3.get_object(Bucket='test_bucket', Key='test_key')
+        data = response['Body'].read().decode('utf-8')
+        #body = s3.Object('test_bucket', 'hello_world.txt').get()['Body'].read().decode("utf-8")
+        self.assertEqual(data, "Hello World")
 
         # Cleanup: delete created file
         if os.path.exists("hello_world.txt"):
