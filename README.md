@@ -1,3 +1,3 @@
 # cicd_tutorial
 
-CI/CD Hello World Project
+CI/CD Hello World Project.
