@@ -1,0 +1,30 @@
+# Automates testing every time a new commit is pushed to repository.
+# Also builds the code, ensuring codebase compiles correctly in a clean env.
+# Triggers on every push and pull request to specific branches.
+
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ master, development, staging ]
+  pull_request:
+    branches: [ master, development, staging ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11.0'
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Run unit tests
+      run: python -m unittest discover -s tests
+      env:
+        CICD_TUTORIAL_ENVIRONMENT: development
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
