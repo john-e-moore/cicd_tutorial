@@ -10,14 +10,14 @@ class TestS3Upload(unittest.TestCase):
     def test_upload_file_to_s3(self):
         # Set up the mock environment
         # Can only use us-east-1 for mock
-        conn = boto3.resource('s3', region_name='us-east-1')
-        conn.create_bucket(Bucket='test_bucket')
+        s3 = boto3.client('s3', region_name='us-east-1')
+        s3.create_bucket(Bucket='test_bucket')
 
         # Call the function with the mock parameters
-        upload_file_to_s3(conn, 'test_bucket', 'test_key')
+        upload_file_to_s3(s3, 'test_bucket', 'test_key')
 
         # Check if the file was created and contents are correct
-        body = conn.Object('test_bucket', 'test_key').get()['Body'].read().decode("utf-8")
+        body = s3.Object('test_bucket', 'test_key').get()['Body'].read().decode("utf-8")
         self.assertEqual(body, "Hello World")
 
         # Cleanup: delete created file
