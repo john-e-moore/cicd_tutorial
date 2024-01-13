@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # deploy_staging.sh
 
 # Exit script on any error
