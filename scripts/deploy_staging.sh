@@ -24,7 +24,7 @@ set -e
 echo "Starting Staging Deployment..."
 
 # SSH into the EC2 instance and perform deployment tasks
-ssh -i ${EC2_SSH_KEY} "ec2-user@{$STAGING_EC2_IP}" << 'ENDSSH'
+ssh -i ${STAGING_EC2_SSH_KEY} "ec2-user@{$STAGING_EC2_IP}" << 'ENDSSH'
     # Commands to run on the server
 
     # Go to the application directory

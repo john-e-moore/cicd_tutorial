@@ -25,6 +25,10 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v3
+      - name: Set up SSH Agent
+        uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: ${{ secrets.STAGING_EC2_SSH_KEY }}
       - name: Make deployment script executable
         run: chmod +x ./scripts/deploy_staging.sh
       - name: Deploy to Staging EC2 Instance
@@ -33,7 +37,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          EC2_SSH_KEY: ${{ secrets.STAGING_EC2_SSH_KEY }}
           STAGING_EC2_IP: ${{ secrets.STAGING_EC2_IP }}
         run: ./scripts/deploy_staging.sh
   deploy-to-production:
